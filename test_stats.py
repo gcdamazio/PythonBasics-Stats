@@ -8,13 +8,23 @@ data2 = [1.0, 2.0, 2.0, 4.0, 5.0]
 
 try:
     assert zcount(data0) == 5
+    print("zcount test passed")
     assert zmean(data0) == 3.0
+    print("zmean test passed")
     assert zmode(data2) == 2.0
+    print("zmode test passed")
+
 
     assert zmedian(data2) == 2.0
+    print("zmedian (data2) test passed")
+
     assert zmedian(data0) == 3.0
+    print("zmedian (data0) test passed")
+
 except AssertionError as e:
-    print(e)
+    #print(e)
+    print("Assertion Error:", e)
+
 
 # Creating a sample of data 
 sample = [2.74, 1.23, 2.63, 2.22, 3, 1.98] 

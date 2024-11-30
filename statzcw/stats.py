@@ -1,34 +1,54 @@
-
+from itertools import count
+import math
 from typing import List
 
 def zcount(data: List[float]) -> float :
-    pass
+    return len(data)
 
 def zmean(data: List[float]) -> float :
-    pass
+    return sum(data) / len(data)
 
 def zmode(data: List[float]) -> float :
-    pass
+    frequency = {}
+    for value in data:
+        frequency[value] = frequency.get(value, 0) + 1
+    mode = max(frequency, key=frequency.get)
+    return mode 
 
 def zmedian(data: List[float]) -> float :
-    pass
+    sorted_data = sorted(data)
+    n = len(data)
+    if n % 2 == 1:
+        return sorted_data[n // 2]
+    else:
+        return (sorted_data[n // 2 -1 ] + sorted_data[n // 2]) /2
 
 def zvariance(data: List[float]) -> float :
-    pass
+    mean = zmean(data)
+    return sum ((x - mean) ** 2 for x in data) / (len(data) - 1)
 	
 def zstddev(data: List[float]) -> float :
     # sqrt of variance
-    pass
+    return math.sqrt(zvariance(data))
 
 def zstderr(data: List[float]) -> float :
-    pass
+    return zstddev(data) / math.sqrt(len(data))
 
 def cov(a, b):
-    pass
+    if len(a) != len(b):
+        raise ValueError("The lists must have the same length.")
+    
+    mean_a = sum(a) / len(a)
+    mean_b = sum(b) / len(b)
+    
+    return sum((x - mean_a) * (y - mean_b) for x, y in zip(a, b)) / (len(a) - 1)
+
 
 def zcorr(datax: List[float], datay: List[float]) -> float :
-    pass
-
+    mean_x = zmean(datax)
+    mean_y = zmean(datay)
+    covariance = sum((x - mean_x) * (y - mean_y) for x,y in zip(datax, datay)) / (len(datax) - 1)
+    return covariance / (zstddev(datax) * zstddev(datay))
 
 def readDataFile(file):
     x,y = [], []
